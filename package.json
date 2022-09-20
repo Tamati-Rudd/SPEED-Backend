@@ -1,0 +1,33 @@
+{
+  "name": "speed-backend",
+  "version": "1.0.0",
+  "description": "Backend for SPEED",
+  "main": "app.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=testing mocha ./tests",
+    "start": "npx nodemon node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vxz7784/SPEED-Backend.git"
+  },
+  "author": "CISE Stream 53 Group 7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vxz7784/SPEED-Backend/issues"
+  },
+  "homepage": "https://github.com/vxz7784/SPEED-Backend#readme",
+  "dependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mocha": "^10.0.0",
+    "mongodb": "^4.10.0",
+    "mongodb-memory-server": "^8.9.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
