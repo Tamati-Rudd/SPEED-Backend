@@ -4,14 +4,25 @@ const port = process.env.PORT || 4000;
 const app = express();
 const mongoConfig = require('./config/mongo-config');
 
-//TODO: Setup CORS
+//CORS protection - only allows requests from the access control origin 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 //Connect to the database cluster, then start the server
 mongoConfig.connectToCluster()
 .then(() => {
+    //Import route objects
+    const submittedRoute = require('./routes/submitted');
+
+    //Route requests to the correct file
+    app.use('/submit', submittedRoute);
+
     //Start the server
     app.listen(port, () => {
-        console.log(`Server listening on port ${port} for requests from TODO: Setup CORS, and connected to database cluster`);
+        console.log(`Server listening on port ${port} for requests from http://localhost:3000, and connected to database cluster`);
     });
 })
 .catch((error) => { //Handle any error that occurs while attempting to start the server
