@@ -11,7 +11,7 @@ router.use(express.json());
  */
 router.post('/save', async(req, res) => {
     try {
-        let submitted = await db.collection(submittedCollection).insertOne(req.body);
+        let submitted = await db.collection(submittedCollection).insertOne(req.body); // enter into database
         if (submitted.acknowledged) {
             res.status(201).send("Article submitted!");
         } else {
