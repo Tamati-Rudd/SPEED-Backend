@@ -17,10 +17,12 @@ mongoConfig.connectToCluster()
     //Import route objects
     const submittedRoute = require('./routes/submitted');
     const viewRoute = require('./routes/viewable');
+    const moderateRoute = require('./routes/moderate');
 
     //Route requests to the correct file
     app.use('/submit', submittedRoute);
     app.use('/articles', viewRoute);
+    app.use('/moderate', moderateRoute);
 
     //Start the server
     app.listen(port, () => {
@@ -30,4 +32,3 @@ mongoConfig.connectToCluster()
 .catch((error) => { //Handle any error that occurs while attempting to start the server
     console.error("An error occured while attempting to start the server: "+error);
 });
-    
