@@ -21,6 +21,7 @@ mongoConfig.connectToCluster()
     //Route requests to the correct file
     app.use('/submit', submittedRoute);
     app.use('/articles', viewRoute);
+    app.use('/moderate', viewRoute);
 
     //Start the server
     app.listen(port, () => {
