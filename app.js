@@ -28,4 +28,3 @@ mongoConfig.connectToCluster()
 .catch((error) => { //Handle any error that occurs while attempting to start the server
     console.error("An error occured while attempting to start the server: "+error);
 });
-    
