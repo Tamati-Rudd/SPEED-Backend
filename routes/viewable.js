@@ -28,82 +28,27 @@ router.get('/view/:year', async (req, res) => {
     try {
         const {year} = req.params;
 
-            let viewable = await db.collection(submittedCollection).find({publication_year
-                : year}).toArray();
-            
-            if (viewable.length !== 0) {// displays all articles
-                res.status(200).json(viewable); //pass
-            } else {
-                res.status(404).send("articles list data not found"); //aricles not found
-            }
+            let viewable = await db.collection(submittedCollection).find({publication_year: year}).toArray();
+            //let check = await db.collection(submittedCollection).find().toArray();
+
+
+                if (viewable.length !== 0) {// displays all articles
+                    res.status(200).json(viewable); //pass
+                } else {
+                    res.status(404).send("articles list data not found"); //aricles not found
+                }
+    
+            // includes check for leters
+            // pull all artcles
+            // comapre the articles to input field with includes
+            // table: 2008 == user.includes("8") 
+
         } catch (error) {
             console.error(error);
         res.status(500).send("Error connecting to database"); //cannot connect to database 
     }
 })
 
-router.get('/moderateArticles', async (req, res) => {
-    try {
-        let viewable = await db.collection(submittedCollection).find({}, { article: {_id: req, title: req}}).toArray();
-        
-        if (viewable.length !== 0) {// displays all articles
-            res.status(200).json(viewable); 
-        } else {
-            res.status(404).send("articles list data not found"); //aricles not found
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error connecting to database"); //cannot connect to database 
-    }
-})
-
-router.get('/moderateArticles/:title', async (req, res) => {
-    try {
-        const {title} = req.params;
-
-            let viewable = await db.collection(submittedCollection).find({title
-                : title}).toArray();
-            
-            if (viewable.length !== 0) {// displays all articles
-                res.status(200).json(viewable); //pass
-            } else {
-                res.status(404).send("articles list data not found"); //aricles not found
-            }
-        } catch (error) {
-            console.error(error);
-        res.status(500).send("Error connecting to database"); //cannot connect to database 
-    }
-})
-
-router.get('/moderateArticles/accepted', async (req, res) => {
-    try {
-        let viewable = await db.collection(acceptedCollection).find({}, { article: {_id: req, title: req}}).toArray();
-        
-        if (viewable.length !== 0) {// displays all articles
-            res.status(200).json(viewable); 
-        } else {
-            res.status(404).send("articles list data not found"); //aricles not found
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error connecting to database"); //cannot connect to database 
-    }
-})
-
-router.get('/moderateArticles/rejected', async (req, res) => {
-    try {
-        let viewable = await db.collection(rejectedCollection).find({}, { article: {_id: req, title: req}}).toArray();
-        
-        if (viewable.length !== 0) {// displays all articles
-            res.status(200).json(viewable); 
-        } else {
-            res.status(404).send("articles list data not found"); //aricles not found
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error connecting to database"); //cannot connect to database 
-    }
-})
 
 //Export router object 
 module.exports = router;
