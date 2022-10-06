@@ -6,7 +6,7 @@ const mongoConfig = require('./config/mongo-config');
 
 //CORS protection - only allows requests from the access control origin 
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://speed-frontend-team7.herokuapp.com/");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -26,7 +26,7 @@ mongoConfig.connectToCluster()
 
     //Start the server
     app.listen(port, () => {
-        console.log(`Server listening on port ${port} for requests from https://speed-frontend-team7.herokuapp.com/, and connected to database cluster`);
+        console.log(`Server listening on port ${port} for requests from http://localhost:3000, and connected to database cluster`);
     });
 })
 .catch((error) => { //Handle any error that occurs while attempting to start the server
