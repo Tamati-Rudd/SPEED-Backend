@@ -15,7 +15,7 @@ app.use(function (req, res, next) {
 mongoConfig.connectToCluster()
 .then(() => {
     //Import route objects
-    const submittedRoute = require('./routes/submitted');
+    const submittedRoute = require('./routes/Submitted');
     const viewRoute = require('./routes/viewable');
     const moderateRoute = require('./routes/moderate');
 
@@ -26,7 +26,7 @@ mongoConfig.connectToCluster()
 
     //Start the server
     app.listen(port, () => {
-        console.log(`Server listening on port ${port} for requests from http://localhost:3000, and connected to database cluster`);
+        console.log(`Server listening on port ${port} for requests from https://speed-frontend-team7.herokuapp.com/, and connected to database cluster`);
     });
 })
 .catch((error) => { //Handle any error that occurs while attempting to start the server
