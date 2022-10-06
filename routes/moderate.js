@@ -16,28 +16,10 @@ router.get('/moderateArticles', async (req, res) => {
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
         } else {
-            res.status(404).send("articles list data not found"); //aricles not found
+            res.status(404).send("moderate articles list data not found"); //aricles not found
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("Error connecting to database"); //cannot connect to database 
-    }
-})
-
-router.get('/moderateArticles/:title', async (req, res) => {
-    try {
-        const {title} = req.params;
-
-            let viewable = await db.collection(submittedCollection).find({title
-                : title}).toArray();
-            
-            if (viewable.length !== 0) {// displays all articles
-                res.status(200).json(viewable); //pass
-            } else {
-                res.status(404).send("articles list data not found"); //aricles not found
-            }
-        } catch (error) {
-            console.error(error);
         res.status(500).send("Error connecting to database"); //cannot connect to database 
     }
 })
@@ -49,7 +31,7 @@ router.get('/moderateArticles/accepted', async (req, res) => {
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
         } else {
-            res.status(404).send("articles list data not found"); //aricles not found
+            res.status(404).send("accepted articles list data not found"); //aricles not found
         }
     } catch (error) {
         console.error(error);
@@ -64,7 +46,7 @@ router.get('/moderateArticles/rejected', async (req, res) => {
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
         } else {
-            res.status(404).send("articles list data not found"); //aricles not found
+            res.status(404).send("rejected articles list data not found"); //aricles not found
         }
     } catch (error) {
         console.error(error);
