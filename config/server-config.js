@@ -10,7 +10,7 @@ const dev = {
 //Server settings for Heroku environment
 const prod = {
     serverSettings: {
-        corsOrigin: "https://speed-backend-team7.herokuapp.com"
+        corsOrigin: "https://speed-frontend-team7.herokuapp.com"
     }
 };
 
