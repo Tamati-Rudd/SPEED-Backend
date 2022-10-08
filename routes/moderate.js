@@ -9,14 +9,14 @@ const viewableCollection = "ViewableArticles";// need to change to viewable coll
 
 router.use(express.json());
 
-router.get('/view', async (req, res) => {
+router.get('/moderateArticles', async (req, res) => {
     try {
         let viewable = await db.collection(submittedCollection).find({}, { article: {_id: req, title: req}}).toArray();
         
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
         } else {
-            res.status(404).send("articles list data not found"); //aricles not found
+            res.status(404).send("moderate articles list data not found"); //aricles not found
         }
     } catch (error) {
         console.error(error);
@@ -24,37 +24,14 @@ router.get('/view', async (req, res) => {
     }
 })
 
-router.get('/view/:title', async (req, res) => {
-    try {
-        const {title} = req.params;
-        
-        //let registered = await db.collection(companyList).findOne({title: articleTitle}, { projection: { _id: 0 } });
-        //if(registered){
-
-            let viewable = await db.collection(viewableCollection).find({title: title}).toArray();
-            
-            if (viewable.length !== 0) {// displays all articles
-                res.status(200).json(viewable); //pass
-            } else {
-                res.status(404).send("articles list data not found"); //aricles not found
-            }
-        //}else{
-        //    res.status(404).send("Article not found");
-        //}
-        } catch (error) {
-            console.error(error);
-        res.status(500).send("Error connecting to database"); //cannot connect to database 
-    }
-})
-
-router.get('/accepted', async (req, res) => {
+router.get('/moderateArticles/accepted', async (req, res) => {
     try {
         let viewable = await db.collection(acceptedCollection).find({}, { article: {_id: req, title: req}}).toArray();
         
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
         } else {
-            res.status(404).send("articles list data not found"); //aricles not found
+            res.status(404).send("accepted articles list data not found"); //aricles not found
         }
     } catch (error) {
         console.error(error);
@@ -62,14 +39,14 @@ router.get('/accepted', async (req, res) => {
     }
 })
 
-router.get('/rejected', async (req, res) => {
+router.get('/moderateArticles/rejected', async (req, res) => {
     try {
         let viewable = await db.collection(rejectedCollection).find({}, { article: {_id: req, title: req}}).toArray();
         
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
         } else {
-            res.status(404).send("articles list data not found"); //aricles not found
+            res.status(404).send("rejected articles list data not found"); //aricles not found
         }
     } catch (error) {
         console.error(error);
