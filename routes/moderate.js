@@ -29,11 +29,11 @@ router.get("/moderateArticles", async (req, res) => {
   }
 });
 
-
 router.get("/moderateArticles/accepted/:id", async (req, res) => {
   try {
     let id = req.params.id;
     if (id === null || id.trim() === "") throw "record not found";
+    id = id.trim();
     console.log("accept id: " + id);
     let accepted = await db
       .collection(submittedCollection)
@@ -43,19 +43,14 @@ router.get("/moderateArticles/accepted/:id", async (req, res) => {
       let found = await db
         .collection(acceptedCollection)
         .findOne({ title: accepted.title });
+      await db.collection(submittedCollection).deleteOne({ _id: ObjectId(id) });
+      console.log("deleted.");
 
       if (!found) {
         console.log(`add to accepted`);
         let insert = await db
           .collection(acceptedCollection)
           .insertOne(accepted);
-        if (insert.acknowledged) {
-          //delete from submitted
-          await db
-            .collection(submittedCollection)
-            .deleteOne({ _id: ObjectId(id) });
-          console.log("deleted.");
-        }
       } else console.log("already exists");
     }
     let viewable = await db
@@ -76,7 +71,6 @@ router.get("/moderateArticles/accepted/:id", async (req, res) => {
 });
 
 // this rejected articles will delete articles from submitted articles 
-
 router.get("/moderateArticles/rejected/:id", async (req, res) => {
   console.log("reject: " + req.params.id);
   try {
@@ -92,6 +86,9 @@ router.get("/moderateArticles/rejected/:id", async (req, res) => {
       .findOne({ _id: ObjectId(id) });
 
     if (rejected) {
+      await db.collection(submittedCollection).deleteOne({ _id: ObjectId(id) });
+      console.log("deleted.");
+
       let found = await db
         .collection(rejectedCollection)
         .findOne({ title: rejected.title });
@@ -100,13 +97,6 @@ router.get("/moderateArticles/rejected/:id", async (req, res) => {
         let insert = await db
           .collection(rejectedCollection)
           .insertOne(rejected);
-        if (insert.acknowledged) {
-          //delete from submitted
-          await db
-            .collection(submittedCollection)
-            .deleteOne({ _id: ObjectId(id) });
-          console.log("deleted.");
-        }
       } else console.log("already exists");
     } else {
       res.status(404).send("rejected articles id not found");
