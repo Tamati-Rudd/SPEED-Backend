@@ -52,6 +52,10 @@ router.get("/moderateArticles/accepted/:id", async (req, res) => {
           .collection(acceptedCollection)
           .insertOne(accepted);
       } else console.log("already exists");
+    } else {
+      //not found
+      res.status(404).send({ error: "Accected articles id not found" });
+      return;
     }
     let viewable = await db
       .collection(submittedCollection)
@@ -70,7 +74,7 @@ router.get("/moderateArticles/accepted/:id", async (req, res) => {
   }
 });
 
-// this rejected articles will delete articles from submitted articles 
+// this rejected articles will delete articles from submitted articles
 router.get("/moderateArticles/rejected/:id", async (req, res) => {
   console.log("reject: " + req.params.id);
   try {
@@ -93,13 +97,8 @@ router.get("/moderateArticles/rejected/:id", async (req, res) => {
         .collection(rejectedCollection)
         .findOne({ title: rejected.title });
 
-      if (!found) {
-        let insert = await db
-          .collection(rejectedCollection)
-          .insertOne(rejected);
-      } else console.log("already exists");
     } else {
-      res.status(404).send("rejected articles id not found");
+      res.status(404).send({ error: "Rejected articles id not found" });
       return;
     }
 
