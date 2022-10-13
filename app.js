@@ -19,11 +19,13 @@ mongoConfig.connectToCluster()
     const submittedRoute = require('./routes/submitted');
     const viewRoute = require('./routes/viewable');
     const moderateRoute = require('./routes/moderate');
+    const analyseRoute = require('./routes/analyse');
 
     //Route requests to the correct file
     app.use('/submit', submittedRoute);
     app.use('/articles', viewRoute);
     app.use('/moderate', moderateRoute);
+    app.use('/analyse', analyseRoute);
 
     //Start the server
     app.listen(port, () => {
