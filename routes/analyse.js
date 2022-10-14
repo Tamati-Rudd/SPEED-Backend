@@ -24,7 +24,7 @@ router.get("/retrieve", async(req, res) => {
  */
 router.post("/submit", async(req, res) => {
     try {
-        throw new error;
+        throw new Error("not yet implemented");
     } catch(error) {
         console.error(error);
         res.status(500).send("Error connecting to database");
