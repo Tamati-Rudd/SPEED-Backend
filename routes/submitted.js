@@ -13,13 +13,13 @@ router.post('/save', async(req, res) => {
     try {
         let submitted = await db.collection(submittedCollection).insertOne(req.body); // enter into database
         if (submitted.acknowledged) {
-            res.status(201).send("Article submitted!");
+            res.status(201).send("Article submitted!"); //201: article submitted
         } else {
-            res.status(500).send("Error submitting article");
+            res.status(500).send("Error submitting article"); //500: article not submitted
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("An error occured"); 
+        res.status(500).send("An error occured");  //500: error
     }
 })
 

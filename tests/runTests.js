@@ -28,7 +28,7 @@ describe('Analyse Route', function () {
             .end((err, res) => {
                 expect(res.status).to.be.equal(200);
                 expect(err).to.be.equal(null);
-                expect(res.body.acceptedArticles[0]._id).to.be.equal("6334080b423576d8a3beba63");
+                expect(res.body[0]._id).to.be.equal("6334080b423576d8a3beba63");
             });
     })
 
