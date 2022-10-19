@@ -76,38 +76,44 @@ router.get("/moderateArticles/accepted/:id", async (req, res) => {
 
 // this rejected articles will delete articles from submitted articles
 router.get("/moderateArticles/rejected/:id", async (req, res) => {
-  console.log("reject: " + req.params.id);
   try {
     let id = req.params.id;
-    if (id === null || id.trim() === "") {
-      throw "id cannot be blank.";
-      return;
-    }
+    if (id === null || id.trim() === "") throw "record not found";
     id = id.trim();
-    console.log("rejected id: " + id);
+    console.log("accept id: " + id);
     let rejected = await db
       .collection(submittedCollection)
       .findOne({ _id: ObjectId(id) });
 
     if (rejected) {
-      await db.collection(submittedCollection).deleteOne({ _id: ObjectId(id) });
-      console.log("deleted.");
-
       let found = await db
         .collection(rejectedCollection)
         .findOne({ title: rejected.title });
+      await db.collection(submittedCollection).deleteOne({ _id: ObjectId(id) });
+      console.log("deleted.");
 
+      if (!found) {
+        console.log(`add to rejected`);
+        let insert = await db
+          .collection(rejectedCollection)
+          .insertOne(rejected);
+      } else console.log("already exists");
     } else {
+      //not found
       res.status(404).send({ error: "Rejected articles id not found" });
       return;
     }
-
     let viewable = await db
       .collection(submittedCollection)
       .find({}, { article: { _id: req, title: req } })
       .toArray();
 
-    res.status(200).json(viewable);
+    if (viewable.length !== 0) {
+      // displays all articles
+      res.status(200).json(viewable);
+    } else {
+      res.status(404).send("rejected articles list data not found"); //aricles not found
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send("Error connecting to database"); //cannot connect to database
