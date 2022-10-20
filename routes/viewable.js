@@ -11,7 +11,7 @@ router.use(express.json());
 
 router.get('/view', async (req, res) => {
     try {
-        let viewable = await db.collection(submittedCollection).find({}, { article: {_id: req, title: req}}).toArray();
+        let viewable = await db.collection(viewableCollection).find({}, { article: {_id: req, title: req}}).toArray();
         
         if (viewable.length !== 0) {// displays all articles
             res.status(200).json(viewable); 
@@ -28,7 +28,7 @@ router.get('/view/:year', async (req, res) => {
     try {
         const {year} = req.params;
 
-            let viewable = await db.collection(submittedCollection).find({publication_year: year}).toArray();
+            let viewable = await db.collection(viewableCollection).find({publication_year: year}).toArray();
             //let check = await db.collection(submittedCollection).find().toArray();
 
 
