@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 const mongoConfig = require("../config/mongo-config");
 const db = mongoConfig.getDb();
-const acceptedCollection = "AcceptedArticles"; // need to change to viewable collection
-const viewableCollection = "ViewableArticles"; // need to change to viewable collection
+const acceptedCollection = "AcceptedArticles"; 
+const viewableCollection = "ViewableArticles"; 
 
 router.use(express.json());
 
